@@ -4,17 +4,18 @@ import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card } from '@/components/ui/card';
 import GlassCard from '@/components/ui-custom/GlassCard';
 import { BookOpen, Lock, Mail } from 'lucide-react';
 import PageTransition from '@/components/layout/PageTransition';
 import { toast } from 'sonner';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const isMobile = useIsMobile();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +41,7 @@ const Login: React.FC = () => {
   return (
     <PageTransition>
       <div className="min-h-screen w-full bg-gradient-to-b from-primary/5 to-secondary/50 flex flex-col items-center justify-center p-4">
-        <div className="w-full max-w-md">
+        <div className={cn("w-full", isMobile ? "max-w-[90%]" : "max-w-md")}>
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center p-3 mb-4 bg-primary/10 rounded-full text-primary">
               <BookOpen className="h-8 w-8" />
@@ -108,7 +109,10 @@ const Login: React.FC = () => {
             
             <div className="mt-8 pt-6 border-t border-border/50 text-center text-sm text-muted-foreground">
               <p>Dados para teste:</p>
-              <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+              <div className={cn(
+                "mt-2 grid gap-2 text-xs",
+                isMobile ? "grid-cols-1" : "grid-cols-3"
+              )}>
                 <div className="p-2 bg-background/50 rounded-md">
                   <p className="font-semibold">Estudante</p>
                   <p>aluno@escola.com</p>
@@ -136,5 +140,9 @@ const Login: React.FC = () => {
     </PageTransition>
   );
 };
+
+function cn(...classes: (string | boolean | undefined)[]): string {
+  return classes.filter(Boolean).join(' ');
+}
 
 export default Login;
