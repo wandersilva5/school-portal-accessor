@@ -13,22 +13,25 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const pageVariants = {
     initial: {
       opacity: 0,
-      y: isMobile ? 20 : 8,
+      x: isMobile ? 10 : 0,
+      y: 0,
     },
     in: {
       opacity: 1,
+      x: 0,
       y: 0,
     },
     out: {
       opacity: 0,
-      y: isMobile ? -20 : -8,
+      x: isMobile ? -10 : 0,
+      y: 0,
     }
   };
 
   const pageTransition = {
     type: "tween",
     ease: "easeInOut",
-    duration: isMobile ? 0.3 : 0.4
+    duration: 0.3
   };
 
   return (
@@ -38,7 +41,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className="w-full"
+      className="w-full p-4"
     >
       {children}
     </motion.div>

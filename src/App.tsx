@@ -3,9 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { useAuth } from "@/context/AuthContext";
+import { AnimatePresence } from "framer-motion";
 
 // Pages
 import Login from "./pages/Login";
@@ -15,12 +16,12 @@ import Grades from "./pages/Grades";
 import Announcements from "./pages/Announcements";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
-import { AnimatePresence } from "framer-motion";
+import MobileLayout from "./components/layout/MobileLayout";
 
 const queryClient = new QueryClient();
 
 // Protected route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
   
   if (loading) {
@@ -31,7 +32,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" replace />;
   }
   
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 // Public route - redirects to dashboard if already authenticated
@@ -55,11 +56,18 @@ const AppRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
-        <Route path="/grades" element={<ProtectedRoute><Grades /></ProtectedRoute>} />
-        <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        
+        {/* Protected routes with mobile layout */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MobileLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/grades" element={<Grades />} />
+            <Route path="/announcements" element={<Announcements />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Route>
+        
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
