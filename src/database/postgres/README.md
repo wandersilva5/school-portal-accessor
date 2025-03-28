@@ -18,6 +18,7 @@ The SQL scripts are organized by domain and should be executed in the following 
 8. `08_communications.sql` - Messages and notifications
 9. `09_system.sql` - System settings and audit logs
 10. `10_indexes.sql` - Performance optimization indexes
+11. `11_sample_data.sql` - Sample data for testing
 
 ## Database Schema
 
@@ -32,6 +33,23 @@ This schema supports all the core functionality of the School Portal application
 - Attendance tracking
 - Internal communication
 - System configuration and auditing
+
+## Sample Data
+
+The `11_sample_data.sql` script provides a comprehensive set of test data including:
+
+- Users with different roles (students, teachers, administrators, guardians)
+- Academic structure (classes, subjects, rooms)
+- Class schedules
+- Assessments and grades
+- Attendance records
+- Announcements
+- Financial records
+- Messages and notifications
+- School calendar events
+- System settings
+
+The sample data is designed to provide a realistic testing environment for all features of the application.
 
 ## Implementation Notes
 
