@@ -1,0 +1,38 @@
+
+-- Assessment types
+CREATE TABLE IF NOT EXISTS assessment_types (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(50) NOT NULL,
+  weight DECIMAL(5,2) DEFAULT 1.0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Assessments
+CREATE TABLE IF NOT EXISTS assessments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+  class_id UUID NOT NULL REFERENCES classes(id) ON DELETE CASCADE,
+  teacher_id UUID NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
+  assessment_type_id UUID NOT NULL REFERENCES assessment_types(id) ON DELETE RESTRICT,
+  term_id UUID NOT NULL REFERENCES terms(id) ON DELETE CASCADE,
+  max_grade DECIMAL(5,2) NOT NULL DEFAULT 10.0,
+  date DATE NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Student grades
+CREATE TABLE IF NOT EXISTS student_grades (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+  assessment_id UUID NOT NULL REFERENCES assessments(id) ON DELETE CASCADE,
+  grade DECIMAL(5,2) NOT NULL,
+  comments TEXT,
+  graded_by UUID NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(student_id, assessment_id)
+);

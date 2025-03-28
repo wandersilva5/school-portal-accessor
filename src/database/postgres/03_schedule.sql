@@ -1,0 +1,36 @@
+
+-- Terms (semesters/quarters)
+CREATE TABLE IF NOT EXISTS terms (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(50) NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  academic_year VARCHAR(9) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Schedule periods
+CREATE TABLE IF NOT EXISTS schedule_periods (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  name VARCHAR(50),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Class schedule
+CREATE TABLE IF NOT EXISTS class_schedules (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  class_id UUID NOT NULL REFERENCES classes(id) ON DELETE CASCADE,
+  subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+  teacher_id UUID NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
+  room_id UUID NOT NULL REFERENCES rooms(id) ON DELETE RESTRICT,
+  period_id UUID NOT NULL REFERENCES schedule_periods(id) ON DELETE RESTRICT,
+  day_of_week INTEGER NOT NULL CHECK (day_of_week BETWEEN 1 AND 7),
+  term_id UUID NOT NULL REFERENCES terms(id) ON DELETE CASCADE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(class_id, period_id, day_of_week, term_id)
+);
