@@ -1,16 +1,26 @@
-
 // User types
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: 'student' | 'teacher' | 'admin' | 'guardian';
   photoURL?: string | null;
   enrollmentId?: string; // For students
   teacherId?: string; // For teachers
   adminId?: string; // For admins
+  guardianId?: string; // For guardians
   class?: string; // For students
   subjects?: string[]; // For teachers
+  children?: string[]; // IDs of children for guardians
+  childrenData?: StudentData[]; // Details of children for guardians
+}
+
+export interface StudentData {
+  id: string;
+  name: string;
+  class: string;
+  enrollmentId: string;
+  photoURL?: string | null;
 }
 
 export interface LoginResponse {
@@ -69,4 +79,14 @@ export interface Announcement {
   date: string;
   tags: string[];
   important: boolean;
+}
+
+// Student Financial Data
+export interface FinancialRecord {
+  id: string;
+  description: string;
+  amount: number;
+  dueDate: string;
+  status: 'paid' | 'pending' | 'overdue';
+  paymentDate?: string;
 }

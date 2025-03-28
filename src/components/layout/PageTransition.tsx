@@ -13,7 +13,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const pageVariants = {
     initial: {
       opacity: 0,
-      x: isMobile ? 10 : 0,
+      x: isMobile ? 20 : 0,
       y: 0,
     },
     in: {
@@ -23,7 +23,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     },
     out: {
       opacity: 0,
-      x: isMobile ? -10 : 0,
+      x: isMobile ? -20 : 0,
       y: 0,
     }
   };

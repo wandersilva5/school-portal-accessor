@@ -18,6 +18,11 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import MobileLayout from "./components/layout/MobileLayout";
 
+// Guardian Pages
+import GuardianChildren from "./pages/guardian/Children";
+import GuardianChildDetails from "./pages/guardian/ChildDetails";
+import GuardianFinance from "./pages/guardian/Finance";
+
 const queryClient = new QueryClient();
 
 // Protected route component
@@ -65,6 +70,11 @@ const AppRoutes = () => {
             <Route path="/grades" element={<Grades />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/profile" element={<Profile />} />
+            
+            {/* Guardian specific routes */}
+            <Route path="/guardian/children" element={<GuardianChildren />} />
+            <Route path="/guardian/children/:childId" element={<GuardianChildDetails />} />
+            <Route path="/guardian/finance" element={<GuardianFinance />} />
           </Route>
         </Route>
         

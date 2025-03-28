@@ -1,5 +1,5 @@
 
-import { User, LoginResponse } from '@/types';
+import { User, LoginResponse, StudentData } from '@/types';
 import { api } from './api';
 import { toast } from 'sonner';
 
@@ -43,6 +43,42 @@ export const auth = {
           name: 'Carlos Souza',
           role: 'admin',
           adminId: 'A20230001',
+          photoURL: null
+        },
+        { 
+          id: '4', 
+          email: 'responsavel@escola.com', 
+          password: 'senha123', 
+          name: 'Ana Pereira',
+          role: 'guardian',
+          guardianId: 'G20230001',
+          children: ['1', '5'],
+          childrenData: [
+            {
+              id: '1',
+              name: 'João Silva',
+              class: '9º Ano A',
+              enrollmentId: '20230001',
+              photoURL: null
+            },
+            {
+              id: '5',
+              name: 'Maria Silva',
+              class: '7º Ano B',
+              enrollmentId: '20230005',
+              photoURL: null
+            }
+          ],
+          photoURL: null
+        },
+        { 
+          id: '5', 
+          email: 'aluno2@escola.com', 
+          password: 'senha123', 
+          name: 'Maria Silva',
+          role: 'student',
+          enrollmentId: '20230005',
+          class: '7º Ano B',
           photoURL: null
         }
       ];

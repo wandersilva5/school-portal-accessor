@@ -7,7 +7,8 @@ import {
   Calendar, 
   MessageSquare, 
   User, 
-  Menu
+  Menu,
+  CreditCard
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useSidebar } from '@/components/ui/sidebar';
@@ -19,12 +20,25 @@ const BottomNavigation: React.FC = () => {
 
   if (!user) return null;
 
-  const navItems = [
-    { path: '/dashboard', icon: <BookOpen className="h-5 w-5" />, label: 'Início' },
-    { path: '/schedule', icon: <Calendar className="h-5 w-5" />, label: 'Horário' },
-    { path: '/announcements', icon: <MessageSquare className="h-5 w-5" />, label: 'Avisos' },
-    { path: '/profile', icon: <User className="h-5 w-5" />, label: 'Perfil' },
-  ];
+  // Define navigation items based on user role
+  let navItems = [];
+  
+  if (user.role === 'guardian') {
+    navItems = [
+      { path: '/dashboard', icon: <BookOpen className="h-5 w-5" />, label: 'Início' },
+      { path: '/guardian/children', icon: <User className="h-5 w-5" />, label: 'Filhos' },
+      { path: '/guardian/finance', icon: <CreditCard className="h-5 w-5" />, label: 'Financeiro' },
+      { path: '/announcements', icon: <MessageSquare className="h-5 w-5" />, label: 'Avisos' },
+      { path: '/profile', icon: <User className="h-5 w-5" />, label: 'Perfil' },
+    ];
+  } else {
+    navItems = [
+      { path: '/dashboard', icon: <BookOpen className="h-5 w-5" />, label: 'Início' },
+      { path: '/schedule', icon: <Calendar className="h-5 w-5" />, label: 'Horário' },
+      { path: '/announcements', icon: <MessageSquare className="h-5 w-5" />, label: 'Avisos' },
+      { path: '/profile', icon: <User className="h-5 w-5" />, label: 'Perfil' },
+    ];
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-t border-border shadow-subtle">
