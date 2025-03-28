@@ -24,11 +24,11 @@ const GlassCard: React.FC<GlassCardProps> = ({
   return (
     <div 
       className={cn(
-        "rounded-xl shadow-subtle backdrop-blur-md",
-        variant === 'default' && "glass",
+        "rounded-xl shadow-subtle",
+        variant === 'default' && "bg-background/95 border border-border/40",
         variant === 'gradient' && "bg-gradient-primary text-white",
-        variant === 'bordered' && "bg-background/50 border-2 border-primary/20",
-        variant === 'minimal' && "bg-background/80 border border-border/50",
+        variant === 'bordered' && "bg-background border-2 border-primary/20",
+        variant === 'minimal' && "bg-background border border-border/50",
         "dark:shadow-medium",
         !noPadding && (isMobile ? "p-5" : "p-6"),
         hover && "card-hover transition-all duration-300",

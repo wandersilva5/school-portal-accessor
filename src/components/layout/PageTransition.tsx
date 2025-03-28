@@ -14,24 +14,20 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     initial: {
       opacity: 0,
       y: isMobile ? 20 : 10,
-      scale: 0.98,
     },
     in: {
       opacity: 1,
       y: 0,
-      scale: 1,
     },
     out: {
       opacity: 0,
       y: isMobile ? -20 : -10,
-      scale: 0.98,
     }
   };
 
   const pageTransition = {
-    type: "spring",
-    stiffness: 260,
-    damping: 20,
+    type: "tween",
+    ease: "easeInOut",
     duration: 0.3
   };
 
