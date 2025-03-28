@@ -32,6 +32,10 @@ const Header: React.FC = () => {
         return 'Horário';
       case '/grades':
         return 'Notas';
+      case '/guardian/children':
+        return 'Meus Filhos';
+      case '/guardian/finance':
+        return 'Financeiro';
       case '/announcements':
         return 'Avisos';
       case '/profile':
@@ -46,21 +50,23 @@ const Header: React.FC = () => {
   return (
     <header 
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
-        isScrolled ? "py-2 glass shadow-subtle backdrop-blur-lg" : "py-3 bg-transparent"
+        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 pt-safe",
+        isScrolled 
+          ? "py-2 glass shadow-subtle backdrop-blur-lg" 
+          : "py-3 bg-gradient-to-b from-background to-transparent"
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
-          <span className="inline-block mr-2">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl mr-2 bg-primary/10">
             <BookOpen className="h-5 w-5 text-primary" />
           </span>
           <h1 className="text-lg font-semibold">{getPageTitle()}</h1>
         </div>
 
-        <Avatar className="h-8 w-8">
+        <Avatar className="h-8 w-8 ring-2 ring-primary/20">
           <AvatarImage src={user.photoURL || ""} alt={user.name} />
-          <AvatarFallback className="bg-primary/10 text-primary">
+          <AvatarFallback className="bg-primary text-primary-foreground font-medium">
             {user.name?.substring(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>

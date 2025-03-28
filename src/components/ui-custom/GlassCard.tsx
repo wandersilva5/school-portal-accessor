@@ -8,6 +8,7 @@ interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   hover?: boolean;
   noPadding?: boolean;
+  variant?: 'default' | 'gradient' | 'bordered' | 'minimal';
 }
 
 const GlassCard: React.FC<GlassCardProps> = ({ 
@@ -15,6 +16,7 @@ const GlassCard: React.FC<GlassCardProps> = ({
   className, 
   hover = false,
   noPadding = false,
+  variant = 'default',
   ...props 
 }) => {
   const isMobile = useIsMobile();
@@ -22,10 +24,14 @@ const GlassCard: React.FC<GlassCardProps> = ({
   return (
     <div 
       className={cn(
-        "rounded-xl glass shadow-subtle backdrop-blur-md",
-        "dark:glass-dark dark:shadow-medium",
-        !noPadding && (isMobile ? "p-4" : "p-6"),
-        hover && !isMobile && "transition-all duration-300 hover:shadow-medium hover:scale-[1.02]",
+        "rounded-xl shadow-subtle backdrop-blur-md",
+        variant === 'default' && "glass",
+        variant === 'gradient' && "bg-gradient-primary text-white",
+        variant === 'bordered' && "bg-background/50 border-2 border-primary/20",
+        variant === 'minimal' && "bg-background/80 border border-border/50",
+        "dark:shadow-medium",
+        !noPadding && (isMobile ? "p-5" : "p-6"),
+        hover && "card-hover transition-all duration-300",
         isMobile && "w-full",
         className
       )}
