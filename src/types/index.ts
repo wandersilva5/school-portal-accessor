@@ -36,6 +36,7 @@ export interface Announcement {
   date: string;
   author: string;
   important: boolean;
+  tags: string[]; // Added tags property which was missing
 }
 
 export interface SubjectGrades {
@@ -46,6 +47,9 @@ export interface SubjectGrades {
     grade: number;
     weight: number;
     date: string;
+    term: string; // Added term
+    assessment: string; // Added assessment
+    maxGrade: number; // Added maxGrade
   }[];
   average: number;
 }

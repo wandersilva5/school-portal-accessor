@@ -204,7 +204,7 @@ const SecretaryRegistrations: React.FC = () => {
                                 <Badge 
                                   variant={
                                     registration.status === 'completed' ? 'default' :
-                                    registration.status === 'approved' ? 'success' :
+                                    registration.status === 'approved' ? 'secondary' : // Changed from 'success' to 'secondary'
                                     registration.status === 'rejected' ? 'destructive' : 
                                     'outline'
                                   }
