@@ -1,4 +1,3 @@
-
 import { User, LoginResponse, StudentData } from '@/types';
 import { api } from './api';
 import { toast } from 'sonner';
@@ -8,13 +7,8 @@ const TOKEN_KEY = 'school_portal_token';
 const USER_KEY = 'school_portal_user';
 
 export const auth = {
-  // Login with credentials
   async login(email: string, password: string): Promise<LoginResponse> {
     try {
-      // In a real app, this would call the API
-      // const response = await api.post('/auth/login', { email, password });
-      
-      // For testing purposes, we'll use mock data
       const mockUsers = [
         { 
           id: '1', 
@@ -80,6 +74,16 @@ export const auth = {
           enrollmentId: '20230005',
           class: '7º Ano B',
           photoURL: null
+        },
+        { 
+          id: '5', 
+          email: 'secretaria@escola.com', 
+          password: 'senha123', 
+          name: 'Ana Rodrigues',
+          role: 'secretary',
+          adminId: 'S20230002',
+          department: 'Secretaria Acadêmica',
+          photoURL: null
         }
       ];
 
@@ -89,13 +93,10 @@ export const auth = {
         throw new Error('Credenciais inválidas');
       }
 
-      // Create a "token"
       const token = `mock_token_${Date.now()}`;
       
-      // Remove the password before storing
       const { password: _, ...userWithoutPassword } = user;
       
-      // Store in localStorage (in a real app this would be handled more securely)
       localStorage.setItem(TOKEN_KEY, token);
       localStorage.setItem(USER_KEY, JSON.stringify(userWithoutPassword));
 
@@ -111,18 +112,15 @@ export const auth = {
     }
   },
   
-  // Logout
   logout(): void {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
   },
   
-  // Check if user is authenticated
   isAuthenticated(): boolean {
     return !!localStorage.getItem(TOKEN_KEY);
   },
   
-  // Get current user
   getCurrentUser(): User | null {
     const userJson = localStorage.getItem(USER_KEY);
     if (!userJson) return null;
@@ -135,7 +133,6 @@ export const auth = {
     }
   },
   
-  // Get authentication token
   getToken(): string | null {
     return localStorage.getItem(TOKEN_KEY);
   }

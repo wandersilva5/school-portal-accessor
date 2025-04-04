@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
 import { useAuth } from '@/context/AuthContext';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarGroup, SidebarGroupLabel } from '@/components/ui/sidebar';
-import { BookOpen, Calendar, GraduationCap, MessageSquare, LogOut, User, Settings, CreditCard, Users } from 'lucide-react';
+import { BookOpen, Calendar, GraduationCap, MessageSquare, LogOut, User, Settings, CreditCard, Users, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const MobileLayout: React.FC = () => {
@@ -16,24 +15,36 @@ const MobileLayout: React.FC = () => {
   // Define sidebar menu items based on user role
   let sidebarMenuItems = [];
   
-  if (user.role === 'guardian') {
+  if (user.role === 'secretary') {
     sidebarMenuItems = [
       { path: '/dashboard', icon: BookOpen, label: 'Dashboard' },
-      { path: '/guardian/children', icon: Users, label: 'Meus Filhos' },
-      { path: '/guardian/finance', icon: CreditCard, label: 'Financeiro' },
+      { path: '/secretary/students', icon: Users, label: 'Alunos' },
+      { path: '/secretary/registrations', icon: FileText, label: 'Matrículas' },
+      { path: '/secretary/documents', icon: FileText, label: 'Documentos' },
       { path: '/announcements', icon: MessageSquare, label: 'Avisos' },
       { path: '/profile', icon: User, label: 'Perfil' },
       { path: '/settings', icon: Settings, label: 'Configurações' },
     ];
   } else {
-    sidebarMenuItems = [
-      { path: '/dashboard', icon: BookOpen, label: 'Dashboard' },
-      { path: '/schedule', icon: Calendar, label: 'Horário' },
-      { path: '/grades', icon: GraduationCap, label: 'Notas' },
-      { path: '/announcements', icon: MessageSquare, label: 'Avisos' },
-      { path: '/profile', icon: User, label: 'Perfil' },
-      { path: '/settings', icon: Settings, label: 'Configurações' },
-    ];
+    if (user.role === 'guardian') {
+      sidebarMenuItems = [
+        { path: '/dashboard', icon: BookOpen, label: 'Dashboard' },
+        { path: '/guardian/children', icon: Users, label: 'Meus Filhos' },
+        { path: '/guardian/finance', icon: CreditCard, label: 'Financeiro' },
+        { path: '/announcements', icon: MessageSquare, label: 'Avisos' },
+        { path: '/profile', icon: User, label: 'Perfil' },
+        { path: '/settings', icon: Settings, label: 'Configurações' },
+      ];
+    } else {
+      sidebarMenuItems = [
+        { path: '/dashboard', icon: BookOpen, label: 'Dashboard' },
+        { path: '/schedule', icon: Calendar, label: 'Horário' },
+        { path: '/grades', icon: GraduationCap, label: 'Notas' },
+        { path: '/announcements', icon: MessageSquare, label: 'Avisos' },
+        { path: '/profile', icon: User, label: 'Perfil' },
+        { path: '/settings', icon: Settings, label: 'Configurações' },
+      ];
+    }
   }
 
   return (

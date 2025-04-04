@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,17 +10,14 @@ import { AnimatePresence } from "framer-motion";
 // Pages
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Schedule from "./pages/Schedule";
-import Grades from "./pages/Grades";
-import Announcements from "./pages/Announcements";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import MobileLayout from "./components/layout/MobileLayout";
 
-// Guardian Pages
-import GuardianChildren from "./pages/guardian/Children";
-import GuardianChildDetails from "./pages/guardian/ChildDetails";
-import GuardianFinance from "./pages/guardian/Finance";
+// Secretary Pages
+import SecretaryStudents from "./pages/secretary/Students";
+import SecretaryRegistrations from "./pages/secretary/Registrations";
+import SecretaryDocuments from "./pages/secretary/Documents";
 
 const queryClient = new QueryClient();
 
@@ -66,15 +62,12 @@ const AppRoutes = () => {
         <Route element={<ProtectedRoute />}>
           <Route element={<MobileLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/grades" element={<Grades />} />
-            <Route path="/announcements" element={<Announcements />} />
             <Route path="/profile" element={<Profile />} />
             
-            {/* Guardian specific routes */}
-            <Route path="/guardian/children" element={<GuardianChildren />} />
-            <Route path="/guardian/children/:childId" element={<GuardianChildDetails />} />
-            <Route path="/guardian/finance" element={<GuardianFinance />} />
+            {/* Secretary specific routes */}
+            <Route path="/secretary/students" element={<SecretaryStudents />} />
+            <Route path="/secretary/registrations" element={<SecretaryRegistrations />} />
+            <Route path="/secretary/documents" element={<SecretaryDocuments />} />
           </Route>
         </Route>
         
