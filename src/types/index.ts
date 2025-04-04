@@ -15,3 +15,59 @@ export interface User {
   children?: string[]; // IDs of children for guardians
   childrenData?: StudentData[]; // Details of children for guardians
 }
+
+export interface StudentData {
+  id: string;
+  name: string;
+  class: string;
+  enrollmentId: string;
+  photoURL: string | null;
+}
+
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  author: string;
+  important: boolean;
+}
+
+export interface SubjectGrades {
+  subject: string;
+  teacher: string;
+  grades: {
+    evaluation: string;
+    grade: number;
+    weight: number;
+    date: string;
+  }[];
+  average: number;
+}
+
+export interface SchedulePeriod {
+  subject: string;
+  teacher: string;
+  class?: string;
+  time: string;
+  room: string;
+}
+
+export interface ScheduleDay {
+  day: string;
+  periods: SchedulePeriod[];
+}
+
+export interface FinancialRecord {
+  id: string;
+  description: string;
+  amount: number;
+  dueDate: string;
+  status: 'paid' | 'pending' | 'overdue';
+  paymentDate?: string;
+}
